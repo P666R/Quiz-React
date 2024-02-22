@@ -11,22 +11,17 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case 'dataReceived':
-      return { ...state, questions: action.payload, status: 'ready' };
+      return {
+        ...state,
+        questions: action.payload,
+        status: 'ready',
+      };
 
-    case 'loading':
-      return { ...state, status: 'loading' };
-
-    case 'error':
-      return { ...state, status: 'error' };
-
-    case 'ready':
-      return { ...state, status: 'ready' };
-
-    case 'active':
-      return { ...state, status: 'active' };
-
-    case 'finished':
-      return { ...state, status: 'finished' };
+    case 'dataFailed':
+      return {
+        ...state,
+        status: 'error',
+      };
 
     default:
       throw new Error('Unknown action');
@@ -43,7 +38,7 @@ export default function App() {
         const data = await res.json();
         dispatch({ type: 'dataReceived', payload: data });
       } catch (error) {
-        console.log(error);
+        dispatch({ type: 'dataFailed' });
       }
     }
 
