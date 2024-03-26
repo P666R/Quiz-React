@@ -16,9 +16,7 @@ function Timer({ dispatch, secondsRemaining }) {
 
   return (
     <div className="timer">
-      {mins < 10 && '0'}
-      {mins}:{secs < 10 && '0'}
-      {secs}
+      {`${mins}`.padStart(2, 0)}:{`${secs}`.padStart(2, 0)}
     </div>
   );
 }
