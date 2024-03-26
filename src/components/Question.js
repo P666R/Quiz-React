@@ -1,7 +1,7 @@
 import Options from './Options';
 
 function Question({
-  question: { question, options, correctOption, points },
+  question: { question, options, correctOption },
   dispatch,
   answer,
 }) {

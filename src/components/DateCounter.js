@@ -1,16 +1,22 @@
 import { useReducer } from 'react';
 
-const initialState = { count: 0, step: 1 };
+//! initial state for useReducer
+const initialState = {
+  count: 0,
+  step: 1,
+};
 
+//! reducer function with current state and action object as parameters
 function reducer(state, action) {
   console.log(state, action);
 
   switch (action.type) {
+    case 'inc':
+      //! return a brand new object
+      return { ...state, count: state.count + state.step };
+
     case 'dec':
       return { ...state, count: state.count - state.step };
-
-    case 'inc':
-      return { ...state, count: state.count + state.step };
 
     case 'setCount':
       return { ...state, count: action.payload };
@@ -27,31 +33,37 @@ function reducer(state, action) {
 }
 
 function DateCounter() {
+  //! useReducer with reducer function and initial state
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  //! destructuring state
   const { count, step } = state;
 
-  // This mutates the date object.
   const date = new Date('june 21 2027');
   date.setDate(date.getDate() + count);
 
   const dec = function () {
+    //! dispatching an action object with type
     dispatch({ type: 'dec' });
   };
 
   const inc = function () {
+    //! dispatching an action object with type
     dispatch({ type: 'inc' });
   };
 
   const defineCount = function (e) {
+    //! dispatching an action object with type and payload
     dispatch({ type: 'setCount', payload: Number(e.target.value) });
   };
 
   const defineStep = function (e) {
+    //! dispatching an action object with type and payload
     dispatch({ type: 'setStep', payload: Number(e.target.value) });
   };
 
   const reset = function () {
+    //! dispatching an action object with type
     dispatch({ type: 'reset' });
   };
 
